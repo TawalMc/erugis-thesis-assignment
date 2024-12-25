@@ -38,7 +38,6 @@ DEBUG = env("DEBUG")
 ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(",")
 
 # Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -46,8 +45,15 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "authentication.apps.AuthenticationConfig",
     "rest_framework",
+    "rest_framework.authtoken",
     "app",
+    "allauth",
+    "allauth.account"
+    "dj_rest_auth",
+    "dj_rest_auth.registration"
 ]
 
 MIDDLEWARE = [
@@ -133,3 +139,12 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "app.User"
+
+# Authentication
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication"
+    ]
+}
+
+SET_ID = 1
