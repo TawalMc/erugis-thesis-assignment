@@ -44,14 +44,14 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",
     "django.contrib.sites",
+    "django.contrib.staticfiles",
     "authentication.apps.AuthenticationConfig",
     "rest_framework",
     "rest_framework.authtoken",
     "app",
     "allauth",
-    "allauth.account"
+    "allauth.account",
     "dj_rest_auth",
     "dj_rest_auth.registration"
 ]
@@ -147,4 +147,4 @@ REST_FRAMEWORK = {
     ]
 }
 
-SET_ID = 1
+SITE_ID = 1
