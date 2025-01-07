@@ -49,11 +49,13 @@ INSTALLED_APPS = [
     "authentication.apps.AuthenticationConfig",
     "rest_framework",
     "rest_framework.authtoken",
-    "app",
+    "student",
+    "supervisor",
     "allauth",
     "allauth.account",
     "dj_rest_auth",
-    "dj_rest_auth.registration"
+    "dj_rest_auth.registration",
+    "rest_framework_simplejwt"
 ]
 
 MIDDLEWARE = [
@@ -85,6 +87,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "core.wsgi.application"
+
+# Mail
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# EMAIL_HOST = env("EMAIL_HOST")
+# EMAIL_USE_TLS = env("EMAIL_USE_TLS")
+# EMAIL_PORT = env("EMAIL_PORT")
+# EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+# EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+# DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -138,13 +149,30 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-AUTH_USER_MODEL = "app.User"
+AUTH_USER_MODEL = "authentication.User"
 
 # Authentication
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.TokenAuthentication"
+        "dj_rest_auth.jwt_auth.JWTCookieAuthentication"
     ]
 }
+
+REST_AUTH = {
+    'SESSION_LOGIN': False,
+    'USE_JWT': True,
+    'JWT_AUTH_COOKIE': "access_token",
+    # 'JWT_AUTH_REFRESH_COOKIE': "refresh_token"
+    'JWT_AUTH_HTTPONLY': False,
+}
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_USERNAME_REQUIRED = False
+
+EMAIL_CONFIRM_REDIRECT_BASE_URL = env("EMAIL_CONFIRM_REDIRECT_BASE_URL")
+PASSWORD_RESET_CONFIRM_REDIRECT_BASE_URL = env("PASSWORD_RESET_CONFIRM_REDIRECT_BASE_URL")
 
 SITE_ID = 1
